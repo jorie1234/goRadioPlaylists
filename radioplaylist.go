@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/url"
+	"os"
 	"path/filepath"
 	"sort"
 )
@@ -36,6 +37,8 @@ func NewRadioPlaylistClient(sender string) *RadioPlaylist {
 	p.BaseURL,_=url.Parse("https://onlineradiobox.com",)
 	p.Client=NewClient(nil)
 	p.Client.SetBaseURL(p.BaseURL.String())
+	newpath := filepath.Join(".", "data")
+	os.MkdirAll(newpath, os.ModePerm)
 	return &p
 }
 func (p *RadioPlaylist) GetFileName()string  {
