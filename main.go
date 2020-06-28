@@ -6,7 +6,7 @@ import (
 
 func main() {
 	c := cron.New()
-	c.AddFunc("30 * * * *", func() { GetRadioData() })
+	c.AddFunc("@every 30m", func() { GetRadioData() })
 	StartServer()
 }
 
