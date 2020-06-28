@@ -10,8 +10,7 @@ ENV GO111MODULE=on \
 WORKDIR /build
 
 # Copy and download dependency using go mod
-COPY go.mod .
-COPY go.sum .
+COPY go.mod go.sum /build/
 RUN go mod download
 
 # Copy the code into the container
@@ -27,9 +26,13 @@ WORKDIR /dist
 RUN cp /build/main .
 
 # Build a small image
-FROM scratch
+FROM alpine:latest
+# mailcap adds mime detection and ca-certificates help with TLS (basic stuff)
+RUN apk --no-cache add ca-certificates
 
 COPY --from=builder /dist/main /
-
+COPY data /data/
+WORKDIR /
+EXPOSE 80
 # Command to run
 ENTRYPOINT ["/main"]

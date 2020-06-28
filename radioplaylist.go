@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/url"
+	"path/filepath"
 	"sort"
 )
 
@@ -38,7 +39,7 @@ func NewRadioPlaylistClient(sender string) *RadioPlaylist {
 	return &p
 }
 func (p *RadioPlaylist) GetFileName()string  {
-	return fmt.Sprintf("%s.json", p.RadioName)
+	return filepath.Join("data", fmt.Sprintf("%s.json", p.RadioName))
 
 }
 func (p *RadioPlaylist) ReadPlaylistFromFile() *Playlist {
