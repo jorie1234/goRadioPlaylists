@@ -6,12 +6,15 @@ import (
 
 func main() {
 	c := cron.New()
-	c.AddFunc("@every 30m", func() { GetRadioData() })
+	m, _ := NewMongoDB()
+	c.AddFunc("@every 30m", func() { GetRadioData(m) })
+	c.Start()
+	GetRadioData(m)
 	StartServer()
 }
 
-func GetRadioData() {
-	NewRadioPlaylistClient("radiohannover").MergePlaylistsAndSave()
-	NewRadioPlaylistClient("radioffn").MergePlaylistsAndSave()
-	NewRadioPlaylistClient("njoyradio").MergePlaylistsAndSave()
+func GetRadioData(m *mongodb) {
+	NewRadioPlaylistClient("radiohannover", m).MergePlaylistsAndSave()
+	NewRadioPlaylistClient("radioffn", m).MergePlaylistsAndSave()
+	NewRadioPlaylistClient("njoyradio", m).MergePlaylistsAndSave()
 }

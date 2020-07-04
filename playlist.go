@@ -6,7 +6,6 @@ import (
 	"net/url"
 )
 
-
 type Client struct {
 	BaseURL   *url.URL
 	UserAgent string
@@ -27,7 +26,7 @@ func (c *Client) SetBaseURL(u string) *Client {
 	return c
 }
 
-func (c *Client) GetPlaylist(path string ) (*PlayData, error) {
+func (c *Client) GetPlaylist(path string) (*PlayData, error) {
 	rel := &url.URL{Path: path}
 	u := c.BaseURL.ResolveReference(rel)
 	req, err := http.NewRequest("GET", u.String(), nil)

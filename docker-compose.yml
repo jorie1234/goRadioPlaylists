@@ -1,0 +1,34 @@
+version: '3.7'
+
+volumes:
+  mongo:
+
+networks:
+  gateway:
+    external: true
+services:
+  radio:
+    build: .
+    ports:
+      - "8083:80"
+    restart: always
+    container_name: radio
+    networks:
+      - gateway
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=radio"
+      - "traefik.frontend.rule=Host:radio.${DOMAINNAME}"
+      - "traefik.port=80"
+      - "traefik.docker.network=gateway"
+    depends_on:
+      - "mongo"  
+  mongo:
+    image: mongo:3-xenial
+    restart: always
+    volumes:
+      - mongo:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - gateway
