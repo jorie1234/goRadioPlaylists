@@ -23,11 +23,6 @@ services:
       - "traefik.docker.network=gateway"
     depends_on:
       - "mongo"  
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10M"
-        max-file: "10"
   mongo:
     image: mongo:3-xenial
     restart: always
