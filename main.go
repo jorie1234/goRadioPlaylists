@@ -17,4 +17,5 @@ func GetRadioData(m *mongodb) {
 	NewRadioPlaylistClient("radiohannover", m).MergePlaylistsAndSave()
 	NewRadioPlaylistClient("radioffn", m).MergePlaylistsAndSave()
 	NewRadioPlaylistClient("njoyradio", m).MergePlaylistsAndSave()
+	NewRadioPlaylistClient("80s80s", m).MergePlaylistsAndSave()
 }
